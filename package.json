@@ -4,7 +4,6 @@
   "description": "backend for the application Travel Tribe",
   "main": "app.js",
   "scripts": {
-    "start":"npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
