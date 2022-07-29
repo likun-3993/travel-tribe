@@ -7,10 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "keywords": [
-    "example",
-    "heroku"
-  ],
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -25,5 +21,4 @@
   "engines": {
     "node": "14.18.1"
   }
-  
 }
