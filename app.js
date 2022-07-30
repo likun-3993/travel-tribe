@@ -9,7 +9,12 @@ app.use(express.json());
 
 //app.use("/api/user", user);
 
-app.get("/", (req, res) => res.send("running"));
+app.get("/", (req, res) =>
+res.json(
+  {id:1,
+  title:'test'}
+)
+);
 
 const PORT = process.env.PORT || 8000;
 
