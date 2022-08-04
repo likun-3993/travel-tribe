@@ -2,7 +2,8 @@ const router = require("express").Router();
 const {
   createUser,
   signin,
-  showPosts,
+  showPostTrek,
+  showPostTrip,
   createPostTrek,
   createPostTrip,
 } = require("../controller/create");
@@ -12,10 +13,11 @@ router.post("/create", validator, validate, createUser);
 router.post("/signin", signin);
 router.post("/posttrek", createPostTrek);
 router.post("/posttrip", createPostTrip);
-router.get("/post", showPosts);
+router.get("/posttrek", showPostTrek);
+router.get("/posttrip", showPostTrip);
 
 router.get("/", (req, res) => {
-  res.send('hello there !!!');
+  res.send("hello there !!!");
 });
 
 module.exports = router;
