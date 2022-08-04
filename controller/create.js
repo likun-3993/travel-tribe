@@ -77,8 +77,13 @@ const createPostTrip = async (req, res) => {
   });
 };
 
-const showPosts = async (req, res) => {
-  const data = await Treks.find();
+const showPostTrek = async (req, res) => {
+  const data = await User.find();
+  res.send(data);
+};
+
+const showPostTrip = async (req, res) => {
+  const data = await User.find();
   res.send(data);
 };
 
@@ -87,5 +92,6 @@ module.exports = {
   signin,
   createPostTrek,
   createPostTrip,
-  showPosts,
+  showPostTrek,
+  showPostTrip,
 };
