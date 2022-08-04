@@ -78,7 +78,7 @@ const createPostTrip = async (req, res) => {
 };
 
 const showPosts = async (req, res) => {
-  const data = await User.find();
+  const data = await Treks.find();
   res.send(data);
 };
 
