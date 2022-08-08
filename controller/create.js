@@ -82,12 +82,12 @@ const createPostTrip = async (req, res) => {
 };
 
 const showPostTrek = async (req, res) => {
-  const data = await User.find();
+  const data = await Treks.find();
   res.send(data);
 };
 
 const showPostTrip = async (req, res) => {
-  const data = await User.find();
+  const data = await Trips.find();
   res.send(data);
 };
 
