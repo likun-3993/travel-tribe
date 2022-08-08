@@ -3,6 +3,10 @@ const { err } = require("../utils/errors");
 const jwt = require("jsonwebtoken");
 const Treks = require("../model/treks");
 const Trips = require("../model/trips");
+const Stripe = require("stripe");
+const PUBLISHABLE_KEY = "pk_test_51LUPknSBcrxbib0Myl5Ya1XT4VLSeeKCiFCwPKTwqFeXg086HRyNZXG3JbBa1oAyx03ehAJu4mbyzMAuPTk9RxNE00OVXsm3SQ";
+const SECRET_KEY = "sk_test_51LUPknSBcrxbib0MMHB2JVApkMPMnwkp5T9Y1a7rqpGFFqPqD8r0NaBjbhXZEEH3ty6I1TzmdCgyO0nwmIbK0HCu00orqiYWhU";
+const stripe = Stripe(SECRET_KEY, { apiVersion: "2022-08-01" });
 
 const createUser = async (req, res) => {
   const { name, email, password, phonenumber } = req.body;
@@ -78,13 +82,32 @@ const createPostTrip = async (req, res) => {
 };
 
 const showPostTrek = async (req, res) => {
-  const data = await Treks.find();
+  const data = await User.find();
   res.send(data);
 };
 
 const showPostTrip = async (req, res) => {
-  const data = await Trips.find();
+  const data = await User.find();
   res.send(data);
+};
+
+const payment = async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 1099, //lowest denomination of particular currency
+      currency: "usd",
+      payment_method_types: ["card"], //by default
+    });
+
+    const clientSecret = paymentIntent.client_secret;
+
+    res.json({
+      clientSecret: clientSecret,
+    });
+  } catch (e) {
+    console.log(e.message);
+    res.json({ error: e.message });
+  }
 };
 
 module.exports = {
@@ -94,4 +117,7 @@ module.exports = {
   createPostTrip,
   showPostTrek,
   showPostTrip,
+  payment,
 };
+
+
