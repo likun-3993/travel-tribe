@@ -1,5 +1,6 @@
 const express = require("express");
 require("./db");
+const path = require("path");
 require("dotenv").config();
 var cors = require("cors");
 const app = express();
@@ -10,12 +11,7 @@ app.use(express.json());
 
 app.use("/api/user", user);
 
-app.get("/", (req, res) =>
-res.json(
-  {id:1,
-  title:'test'}
-)
-);
+app.get("/", (req, res) => res.sendFile(path.join(__dirname + "/index.html")));
 
 const PORT = process.env.PORT || 8000;
 
