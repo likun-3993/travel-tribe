@@ -3,10 +3,10 @@ const { err } = require("../utils/errors");
 const jwt = require("jsonwebtoken");
 const Treks = require("../model/treks");
 const Trips = require("../model/trips");
-const Stripe = require("stripe");
-const PUBLISHABLE_KEY = "pk_test_51LUPknSBcrxbib0Myl5Ya1XT4VLSeeKCiFCwPKTwqFeXg086HRyNZXG3JbBa1oAyx03ehAJu4mbyzMAuPTk9RxNE00OVXsm3SQ";
-const SECRET_KEY = "sk_test_51LUPknSBcrxbib0MMHB2JVApkMPMnwkp5T9Y1a7rqpGFFqPqD8r0NaBjbhXZEEH3ty6I1TzmdCgyO0nwmIbK0HCu00orqiYWhU";
-const stripe = Stripe(SECRET_KEY, { apiVersion: "2022-08-01" });
+const TokenSchema = require("../model/tokenSchema");
+const { generateOTP, mailTransport } = require("../utils/mail");
+// const mailTransport = require("../utils/mail");
+
 
 const createUser = async (req, res) => {
   const { name, email, password, phonenumber } = req.body;
@@ -20,7 +20,20 @@ const createUser = async (req, res) => {
     password,
     phonenumber,
   });
+
+  const OTP = generateOTP();
+  const tokenSchema = new TokenSchema({
+    owner: newUser._id,
+    token: OTP,
+  });
+  await tokenSchema.save();
   await newUser.save();
+  mailTransport().sendMail({
+    from: "rupeshadmin@gmail.com",
+    to: newUser.email,
+    subject: "forget",
+    html: `<h1>${OTP}<h1>`,
+  });
   res.send(newUser);
 };
 
@@ -119,5 +132,8 @@ module.exports = {
   showPostTrip,
   payment,
 };
+
+
+
 
 
