@@ -31,7 +31,7 @@ const createUser = async (req, res) => {
   mailTransport().sendMail({
     from: "rupeshadmin@gmail.com",
     to: newUser.email,
-    subject: "forget",
+    subject: "Welcome To Treks & Trips",
     html: `<h1>${OTP}<h1>`,
   });
   res.send(newUser);
