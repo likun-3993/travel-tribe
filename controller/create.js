@@ -40,11 +40,11 @@ const createUser = async (req, res) => {
 const signin = async (req, res) => {
   const { password, email } = req.body;
   if (!email || !password) {
-    return err(res, "email or password can not be empty", (stats = 400));
+    return err(res, "email or password can not be empty");
   }
   const user = await User.findOne({ email });
   if (!user) {
-    return err(res, "no such user", (stats = 400));
+    return err(res, "no such user");
   }
   const matched = await user.comparePassword(password);
   if (!matched) return err(res, "incorrect password");
