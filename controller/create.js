@@ -61,7 +61,7 @@ const signin = async (req, res) => {
 const createPostTrek = async (req, res) => {
   let { title, description, level, seats, vacancy, cost, date } = req.body;
   date = new Date(date);
-  date.setDate(date.getDate() + 1);
+//   date.setDate(date.getDate() + 1);
   const data = new Treks({
     title,
     description,
