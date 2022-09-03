@@ -25,14 +25,14 @@ const trekData = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  // time: {
-  //   type: Date,
-  //   default: new Date(),
-  // },
-  // date: {
-  //   type: Date,
-  //   default: new Date(),
-  // },
+  time: {
+    type: Date,
+    default: new Date(),
+  },
+  date: {
+    type: Date,
+    // default: new Date(),
+  },
 });
 
 module.exports = mongoose.model("Treks", trekData);
