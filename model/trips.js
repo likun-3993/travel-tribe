@@ -35,4 +35,4 @@ const tripData = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Trip", tripData);
+module.exports = mongoose.model("Trips", tripData);
