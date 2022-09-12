@@ -77,7 +77,7 @@ const createPostTrek = async (req, res) => {
   });
 };
 
-const createPostTrip = async (req, res) => {
+let createPostTrip = async (req, res) => {
   const { title, description, level, seats, vacancy, cost, date } = req.body;
   date = new Date(date);
   const data = new Trips({
