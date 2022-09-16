@@ -62,9 +62,9 @@ app.use(express.json());
 app.use("/api/user", user);
 
 app.post("/initiate", (req, res) => {
-  const { _id, cost, booked } = req.body;
+  const { _id, booked, toPay } = req.body;
   identity = _id;
-  pay = cost * 100;
+  pay = toPay * 100;
   seats = booked;
   res.send({ identity, pay, seats });
 });
