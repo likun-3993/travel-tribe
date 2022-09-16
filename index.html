@@ -13,8 +13,8 @@
     background-color: #7fbcd2;
   }
   #rzp-button1 {
-    height: 30px;
-    font-size: medium;
+    height: 80px;
+    font-size: 5.5vw;
   }
 </style>
 <!-- <h4>INR 300 only</h4> -->
@@ -28,7 +28,7 @@
 <script>
   var orderId;
   var price;
-  $("button").hide();
+  // $("button").hide();
   $(document).ready(function () {
     var settings = {
       url: "/create/orderId",
@@ -45,7 +45,7 @@
       orderId = response.orderId;
       price = response.amount;
       console.log(orderId);
-      $("button").show();
+      // $("button").show();
     });
   });
 
