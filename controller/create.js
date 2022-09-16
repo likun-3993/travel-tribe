@@ -1,12 +1,14 @@
+const fast2sms = require("fast-two-sms");
 const User = require("../model/user");
 const { err } = require("../utils/errors");
 const jwt = require("jsonwebtoken");
 const Treks = require("../model/treks");
 const Trips = require("../model/trips");
 const TokenSchema = require("../model/tokenSchema");
+const nodemailer = require("nodemailer");
 const { generateOTP, mailTransport } = require("../utils/mail");
-// const mailTransport = require("../utils/mail");
-
+var Razorpay = require("razorpay");
+// const { application } = require("express");
 
 const createUser = async (req, res) => {
   const { name, email, password, phonenumber } = req.body;
@@ -34,6 +36,34 @@ const createUser = async (req, res) => {
     subject: "Welcome To Treks & Trips",
     html: `<h1>${OTP}<h1>`,
   });
+
+  let transporter = nodemailer.createTransport({
+    service: "gmail", // true for 465, false for other ports
+    port: 465,
+    auth: {
+      user: "rupeshadm90@gmail.com", // generated ethereal user
+      pass: "srhuhomwjqxejduu", // generated ethereal password
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+    host: "smtp.gmail.com",
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: "rupeshadm90@gmail.com", // sender address
+    to: "rupesh0806126@gmail.com", // list of receivers
+    subject: "test otp", // Subject line
+    text: `${OTP}`, // plain text body
+  });
+
+  transporter.sendMail(info, (error, inf) => {
+    if (error) {
+      return console.log(error);
+    }
+  });
+
   res.send(newUser);
 };
 
@@ -61,6 +91,7 @@ const signin = async (req, res) => {
 const createPostTrek = async (req, res) => {
   let { title, description, level, seats, vacancy, cost, date } = req.body;
   date = new Date(date);
+  date.setDate(date.getDate() + 1);
   const data = new Treks({
     title,
     description,
@@ -77,9 +108,8 @@ const createPostTrek = async (req, res) => {
   });
 };
 
-let createPostTrip = async (req, res) => {
-  let { title, description, level, seats, vacancy, cost, date } = req.body;
-  date = new Date(date);
+const createPostTrip = async (req, res) => {
+  const { title, description, level, seats, vacancy, cost, date } = req.body;
   const data = new Trips({
     title,
     description,
@@ -106,25 +136,6 @@ const showPostTrip = async (req, res) => {
   res.send(data);
 };
 
-const payment = async (req, res) => {
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: 1099, //lowest denomination of particular currency
-      currency: "usd",
-      payment_method_types: ["card"], //by default
-    });
-
-    const clientSecret = paymentIntent.client_secret;
-
-    res.json({
-      clientSecret: clientSecret,
-    });
-  } catch (e) {
-    console.log(e.message);
-    res.json({ error: e.message });
-  }
-};
-
 module.exports = {
   createUser,
   signin,
@@ -132,10 +143,4 @@ module.exports = {
   createPostTrip,
   showPostTrek,
   showPostTrip,
-  payment,
 };
-
-
-
-
-
