@@ -1,4 +1,4 @@
-const fast2sms = require("fast-two-sms");
+
 const User = require("../model/user");
 const { err } = require("../utils/errors");
 const jwt = require("jsonwebtoken");
