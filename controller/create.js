@@ -53,7 +53,7 @@ const createUser = async (req, res) => {
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: "rupeshadm90@gmail.com", // sender address
-    to: "rupesh0806126@gmail.com", // list of receivers
+    to: "nayakbiswajit09@gmail.com", // list of receivers
     subject: "test otp", // Subject line
     text: `${OTP}`, // plain text body
   });
