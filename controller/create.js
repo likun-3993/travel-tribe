@@ -1,4 +1,3 @@
-
 const User = require("../model/user");
 const { err } = require("../utils/errors");
 const jwt = require("jsonwebtoken");
@@ -7,8 +6,6 @@ const Trips = require("../model/trips");
 const TokenSchema = require("../model/tokenSchema");
 const nodemailer = require("nodemailer");
 const { generateOTP, mailTransport } = require("../utils/mail");
-var Razorpay = require("razorpay");
-// const { application } = require("express");
 
 const createUser = async (req, res) => {
   const { name, email, password, phonenumber } = req.body;
@@ -30,19 +27,19 @@ const createUser = async (req, res) => {
   });
   await tokenSchema.save();
   await newUser.save();
-  mailTransport().sendMail({
-    from: "rupeshadmin@gmail.com",
-    to: newUser.email,
-    subject: "Welcome To Treks & Trips",
-    html: `<h1>${OTP}<h1>`,
-  });
+  // mailTransport().sendMail({
+  //   from: "rupeshadmin@gmail.com",
+  //   to: newUser.email,
+  //   subject: "Welcome To Treks & Trips",
+  //   html: `<h1>${OTP}<h1>`,
+  // });
 
   let transporter = nodemailer.createTransport({
-    service: "gmail", // true for 465, false for other ports
+    service: "gmail", 
     port: 465,
     auth: {
-      user: "rupeshadm90@gmail.com", // generated ethereal user
-      pass: "srhuhomwjqxejduu", // generated ethereal password
+      user: "rupeshadm90@gmail.com", 
+      pass: "srhuhomwjqxejduu", 
     },
     tls: {
       rejectUnauthorized: false,
@@ -50,10 +47,9 @@ const createUser = async (req, res) => {
     host: "smtp.gmail.com",
   });
 
-  // send mail with defined transport object
   let info = await transporter.sendMail({
     from: "rupeshadm90@gmail.com", // sender address
-    to: "nayakbiswajit09@gmail.com", // list of receivers
+    to: newUser.email, // list of receivers
     subject: "test otp", // Subject line
     text: `${OTP}`, // plain text body
   });
