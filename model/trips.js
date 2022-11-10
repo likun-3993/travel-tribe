@@ -25,7 +25,11 @@ const tripData = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  time: {
+  Stime: {
+    type: Date,
+    default: new Date(),
+  },
+  Ftime: {
     type: Date,
     default: new Date(),
   },
@@ -33,6 +37,12 @@ const tripData = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  start_point: {
+    type: String,
+  },
+  destination_point: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model("Trips", tripData);

@@ -11,6 +11,7 @@ const Treks = require("./model/treks");
 let identity;
 let pay;
 let seats;
+
 let instance = new Razorpay({
   key_id: "rzp_test_XPknkE3UikXlnX", // your `KEY_ID`
   key_secret: "gRf8XwhbQcearTaUO4TZFUQb", // your `KEY_SECRET`
@@ -19,6 +20,7 @@ let instance = new Razorpay({
 app.use("/web", express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.post("/create/orderId", (req, res) => {
   var options = {
     amount: pay,

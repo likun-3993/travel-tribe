@@ -5,7 +5,7 @@ const Treks = require("../model/treks");
 const Trips = require("../model/trips");
 const TokenSchema = require("../model/tokenSchema");
 const nodemailer = require("nodemailer");
-const { generateOTP, mailTransport } = require("../utils/mail");
+const { generateOTP } = require("../utils/mail");
 
 const createUser = async (req, res) => {
   const { name, email, password, phonenumber } = req.body;
@@ -27,19 +27,13 @@ const createUser = async (req, res) => {
   });
   await tokenSchema.save();
   await newUser.save();
-  // mailTransport().sendMail({
-  //   from: "rupeshadmin@gmail.com",
-  //   to: newUser.email,
-  //   subject: "Welcome To Treks & Trips",
-  //   html: `<h1>${OTP}<h1>`,
-  // });
 
   let transporter = nodemailer.createTransport({
-    service: "gmail", 
+    service: "gmail",
     port: 465,
     auth: {
-      user: "rupeshadm90@gmail.com", 
-      pass: "srhuhomwjqxejduu", 
+      user: "rupeshadm90@gmail.com",
+      pass: "srhuhomwjqxejduu",
     },
     tls: {
       rejectUnauthorized: false,
@@ -85,8 +79,21 @@ const signin = async (req, res) => {
 };
 
 const createPostTrek = async (req, res) => {
-  let { title, description, level, seats, vacancy, cost, date } = req.body;
+  let {
+    title,
+    description,
+    level,
+    seats,
+    vacancy,
+    cost,
+    Stime,
+    Ftime,
+    date,
+    meeting_place,
+  } = req.body;
+
   date = new Date(date);
+
   const data = new Treks({
     title,
     description,
@@ -94,7 +101,10 @@ const createPostTrek = async (req, res) => {
     seats,
     vacancy,
     cost,
+    Stime,
+    Ftime,
     date,
+    meeting_place,
   });
   await data.save();
   res.json({
@@ -104,7 +114,20 @@ const createPostTrek = async (req, res) => {
 };
 
 const createPostTrip = async (req, res) => {
-  const { title, description, level, seats, vacancy, cost, date } = req.body;
+  const {
+    title,
+    description,
+    level,
+    seats,
+    vacancy,
+    cost,
+    Stime,
+    Ftime,
+    date,
+    start_point,
+    destination_point,
+  } = req.body;
+
   const data = new Trips({
     title,
     description,
@@ -112,7 +135,11 @@ const createPostTrip = async (req, res) => {
     seats,
     vacancy,
     cost,
+    Stime,
+    Ftime,
     date,
+    start_point,
+    destination_point,
   });
   await data.save();
   res.json({
