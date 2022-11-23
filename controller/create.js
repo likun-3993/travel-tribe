@@ -25,6 +25,7 @@ const createUser = async (req, res) => {
     owner: newUser._id,
     token: OTP,
   });
+
   await tokenSchema.save();
   await newUser.save();
 
@@ -48,11 +49,11 @@ const createUser = async (req, res) => {
     text: `${OTP}`, // plain text body
   });
 
-  transporter.sendMail(info, (error, inf) => {
-    if (error) {
-      return console.log(error);
-    }
-  });
+  // transporter.sendMail(info, (error, inf) => {
+  //   if (error) {
+  //     return console.log(error);
+  //   }
+  // });
 
   res.send(newUser);
 };
@@ -85,6 +86,7 @@ const createPostTrek = async (req, res) => {
     level,
     seats,
     vacancy,
+    images,
     cost,
     Stime,
     Ftime,
@@ -101,6 +103,7 @@ const createPostTrek = async (req, res) => {
     seats,
     vacancy,
     cost,
+    images,
     Stime,
     Ftime,
     date,
@@ -120,6 +123,7 @@ const createPostTrip = async (req, res) => {
     level,
     seats,
     vacancy,
+    images,
     cost,
     Stime,
     Ftime,
@@ -128,12 +132,15 @@ const createPostTrip = async (req, res) => {
     destination_point,
   } = req.body;
 
+  date = new Date(date);
+
   const data = new Trips({
     title,
     description,
     level,
     seats,
     vacancy,
+    images,
     cost,
     Stime,
     Ftime,

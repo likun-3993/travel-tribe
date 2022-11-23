@@ -25,16 +25,21 @@ const trekData = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  images: {
+    type: Number,
+    default: 0,
+  },
   Stime: {
     type: Date,
-    // default: new Date(),
+    default: new Date(),
   },
   Ftime: {
     type: Date,
-    // default: new Date(),
+    default: new Date(),
   },
   date: {
     type: Date,
+    default: new Date(),
   },
   meeting_place: {
     type: String,
