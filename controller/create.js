@@ -116,7 +116,7 @@ const createPostTrek = async (req, res) => {
 };
 
 const createPostTrip = async (req, res) => {
-  const {
+  let {
     title,
     description,
     level,
